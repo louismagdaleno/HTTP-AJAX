@@ -7,7 +7,8 @@ const AddFriend = props => {
             <form onSubmit={props.postFriend}>
                 <input name="name" placeholder="name" onChange={props.handleChange} value={props.name} />
                 <input name="email" placeholder="email" onChange={props.handleChange} value={props.email} />
-                <button type="submit" value="Submit" onClick={props.handleClick}>Add Friend</button>
+                <input name="age" placeholder="age" onChange={props.handleChange} value={props.age} />
+                <button type="submit" value="Submit" onClick={props.postFriend}>Add Friend</button>
             </form>
         );
     

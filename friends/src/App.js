@@ -5,15 +5,18 @@ import './App.css';
 import Friends from './components/Friends/Friends';
 import AddFriend from './components/AddFriend/AddFriend';
 
+const URL = "http://localhost:5000/friends";
+
 class App extends Component {
   state = {
     data : [],
     name: '',
     email: '',
+    age : 0,
     id : 8
   }
   componentDidMount(){
-    axios.get('http://localhost:5000/friends')
+    axios.get(URL)
       .then(response => this.setState({
         data: response.data
       }))
@@ -30,20 +33,19 @@ class App extends Component {
   }
   postFriend = event => {
     event.preventDefault();
-    const newFriend = {'name': this.state.name, 'email': this.state.email};
+    const friend = {name: this.state.name, email: this.state.email, age: this.state.age};
     axios
-    .post(`http://localhost:5000/friends`, newFriend)
-    .then(response => {
-      console.log(response)
-      this.setState({
-       postSuccessMessage: response.data.successMessage,
-    })})
-    .catch(err => console.log(err));
-  }
+    .post(URL, friend )
+    .then((res) => {
+      this.setState({data: res.data, name: " ", age: " ", email: " "});
+    })
+    .catch((err) => console.log(err));
+
+};
   render() {
     return (
       <div className="App">
-        <AddFriend addFriend={ this.postFriend} handleClick={this.handleClick} />
+        <AddFriend addFriend={ this.postFriend} handleChange={this.handleChange} handleClick={this.handleClick} />
         <Friends friends={this.state.data} />
       </div>
     );
