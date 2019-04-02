@@ -13,6 +13,10 @@ class AddFriend extends Component {
             [event.target.name] : event.target.value
         });
     }
+    
+    handleSubmit = event => {
+        event.preventDefault();
+    }
 
     render(){
         return (
