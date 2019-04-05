@@ -13,7 +13,9 @@ class App extends Component {
     name: '',
     email: '',
     age : 0,
-    id : 8
+    id : 8,
+    updateID: 0,
+    update: false
   }
   componentDidMount(){
     axios.get(URL)
@@ -42,11 +44,56 @@ class App extends Component {
     .catch((err) => console.log(err));
 
 };
+
+handleFriendUpdate = (  id, event) => {
+  
+  
+
+  this.setState(prevState => ({
+    updateID : id,
+    update : true
+  }))
+
+
+}
+deleteFriend = friend => {
+
+  axios
+    .delete(URL+`/${friend.id}`)
+    .then(resp => this.setState({ friends: resp.data }))
+    .catch(console.log);
+
+
+    axios.get(URL)
+  .then(response => this.setState({
+    data: response.data
+  }))
+  .catch(err => console.log(err));
+};
+
+updateFriend = event => {
+  event.preventDefault();
+
+  axios
+  .put(URL + '/' + this.state.updateID.toString() )
+  .then((res) => {
+    console.log('success');
+   
+  
+  })
+  .catch((err) => console.log(err));
+
+  axios.get(URL)
+  .then(response => this.setState({
+    data: response.data
+  }))
+  .catch(err => console.log(err));
+}
   render() {
     return (
       <div className="App">
-        <AddFriend addFriend={ this.postFriend} handleChange={this.handleChange} handleClick={this.handleClick} />
-        <Friends friends={this.state.data} />
+        <AddFriend updateIndex={this.state.updateIndex} update={this.state.update} updateFriend={this.updateFriend} addFriend={ this.postFriend} handleChange={this.handleChange} handleClick={this.handleClick} />
+        <Friends friends={this.state.data} deleteFriend={this.deleteFriend} handleFriendUpdate={this.handleFriendUpdate} />
       </div>
     );
   }
