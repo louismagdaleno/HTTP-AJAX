@@ -4,7 +4,7 @@ const AddFriend = props => {
 
    
         return (
-            <form onSubmit={props.postFriend}>
+            <form onSubmit={props.addFriend}>
                 <input name="name" placeholder="name" onChange={props.handleChange} value={props.name} />
                 <input name="email" placeholder="email" onChange={props.handleChange} value={props.email} />
                 <input name="age" placeholder="age" onChange={props.handleChange} value={props.age} />
