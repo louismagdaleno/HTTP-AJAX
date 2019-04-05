@@ -71,23 +71,16 @@ deleteFriend = friend => {
   .catch(err => console.log(err));
 };
 
-updateFriend = event => {
+updateFriend = event  => {
   event.preventDefault();
-
+  const friend = {name: this.state.name, age : this.state.age, email : this.state.email, id : this.state.updateID};
   axios
-  .put(URL + '/' + this.state.updateID.toString() )
-  .then((res) => {
-    console.log('success');
-   
-  
-  })
-  .catch((err) => console.log(err));
+  .put(`http://localhost:5000/friends/${this.state.updateId}`, friend)
+  .then(resp => this.setState({ friends: resp.data }))
+  .catch(console.log);
 
-  axios.get(URL)
-  .then(response => this.setState({
-    data: response.data
-  }))
-  .catch(err => console.log(err));
+
+ 
 }
   render() {
     return (
